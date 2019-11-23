@@ -7,7 +7,6 @@
 <script>
 import Header from './components/Header';
 import getUser from './services/user';
-//const getUser = require('./services/user');
 
 
 export default {
@@ -17,10 +16,10 @@ export default {
   },
   data() {
     return {
-      user: {}
+      user: null
     }
   },
-  async created(){
+  async created() {
     this.user = await getUser();
   }
 }

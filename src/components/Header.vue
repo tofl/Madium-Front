@@ -1,11 +1,15 @@
 <template>
   <div class="header">
     <div class="right">Madium</div>
+
+    <!-- If the user is currently logged in -->
     <div v-if="user" class="right">Bonjour</div>
-    <form v-else class="right">
+
+    <!-- If the user is not logged in -->
+    <form v-else class="right" @submit.prevent="submitLogin">
       <div class="input-fields">
-        <input type="text" placeholder="Email" class="email">
-        <input type="password" placeholder="Mot de passe" class="password">
+        <input v-model="credentials.email" type="email" placeholder="Email" class="email">
+        <input v-model="credentials.password" type="password" placeholder="Mot de passe" class="password">
         <button>Go !</button>
       </div>
     </form>
@@ -17,6 +21,19 @@
     name: 'Header',
     props: {
       user: Object
+    },
+    data() {
+      return {
+        credentials: { // The bindings used for the login form
+          email: '',
+          password: ''
+        }
+      }
+    },
+    methods: {
+      submitLogin: () => {
+        console.log("yeah");
+      }
     }
   };
 </script>
