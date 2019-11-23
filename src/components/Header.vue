@@ -17,6 +17,8 @@
 </template>
 
 <script>
+  import axios from 'axios';
+
   export default {
     name: 'Header',
     props: {
@@ -32,7 +34,7 @@
     },
     methods: {
       submitLogin: () => {
-        console.log("yeah");
+        axios.post();
       }
     }
   };

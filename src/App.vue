@@ -1,18 +1,17 @@
 <template>
   <div id="app">
-    <Header :user="user"></Header>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
-import Header from './components/Header';
 import getUser from './services/user';
 
 
 export default {
   name: 'app',
   components: {
-    Header
+
   },
   data() {
     return {
