@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import getUser from './services/user';
+import { getUser } from './services/user';
 
 
 export default {

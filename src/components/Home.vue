@@ -1,12 +1,12 @@
 <template>
   <div>
-    <Header :user="user"></Header>
+    <Header :user="user" @login="hydrateUser"></Header>
   </div>
 </template>
 
 <script>
   import Header from './Header';
-  import getUser from './../services/user';
+  import { getUser } from './../services/user';
 
 
   export default {
@@ -17,6 +17,11 @@
     data() {
       return {
         user: null
+      }
+    },
+    methods: {
+      hydrateUser(userData) {
+        this.user = userData;
       }
     },
     async created() {

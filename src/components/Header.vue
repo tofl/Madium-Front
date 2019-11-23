@@ -3,7 +3,9 @@
     <div class="right">Madium</div>
 
     <!-- If the user is currently logged in -->
-    <div v-if="user" class="right">Bonjour</div>
+    <div v-if="user" class="right">
+      <button @click="logoutAction()">Logout</button>
+    </div>
 
     <!-- If the user is not logged in -->
     <form v-else class="right" @submit.prevent="submitLogin">
@@ -17,7 +19,7 @@
 </template>
 
 <script>
-  import axios from 'axios';
+  import { login, getUser, logout } from './../services/user';
 
   export default {
     name: 'Header',
@@ -33,8 +35,17 @@
       }
     },
     methods: {
-      submitLogin: () => {
-        axios.post();
+      async submitLogin() {
+        if (this.credentials.email.length < 10 || this.credentials.password.length === 0) {
+          return;
+        }
+        await login(this.credentials.email, this.credentials.password);
+
+        let userData = await getUser();
+        this.$emit('login', userData);
+      },
+      async logoutAction() {
+        await logout();
       }
     }
   };

@@ -1,16 +1,44 @@
 const axios = require('axios');
-//const config = require('./config');
 import config from './config.json';
-//const path = require('path');
 
+const back = axios.create({
+  baseURL: config.backend,
+  withCredentials: true
+});
 
-export default async function getUser(id) {
+async function login(email, password) {
+  let results = await back.post("/users/login", {
+    email,
+    password
+  });
+  
+  return results;
+}
+
+async function getUser(id) {
   let userId = id ? id : "";
   
+  let user;
   try {
-    let user = await axios.get(config.backend + "/users/" + userId);
-    return user.data;
+    user = await back.get("/users/" + userId);
   } catch (e) {
+    console.log(e);
     return null;
   }
+  return user.data;
 }
+
+async function logout() {
+  try {
+    await back.get("/users/logout");
+    return;
+  } catch(e) {
+    return;
+  }
+}
+
+export {
+  login,
+  getUser,
+  logout
+};
