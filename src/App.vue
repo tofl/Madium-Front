@@ -2,7 +2,7 @@
   <div id="app">
     <Header :user="user" @login="importUser" @logout="user = null"></Header>
     <div class="main-wrapper">
-      <router-view :user="user"></router-view>
+      <router-view :user="user" @login="importUser"></router-view>
     </div>
   </div>
 </template>

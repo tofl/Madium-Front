@@ -12,7 +12,7 @@
 </template>
 
 <script>
-  import { getUser, newUser } from './../services/user';
+  import { getUser, newUser, login } from './../services/user';
 
   export default {
     name: 'Signup',
@@ -28,17 +28,22 @@
     },
     methods: {
       async submitForm() {
-        let userId = await newUser(
+        await newUser(
           this.userData.firstname,
           this.userData.lastname,
           this.userData.email,
           this.userData.password
         );
 
-        let user = await getUser(userId.userId);
-        console.log(user);
+        // User login with the credentials he specified :
+        await login(this.userData.email, this.userData.password);
+
+        // Fetch user after login
+        let user = await getUser();
+        this.$emit('login', user);
 
         // Redirect to homepage
+        this.$router.push('/');
       }
     }
   }
