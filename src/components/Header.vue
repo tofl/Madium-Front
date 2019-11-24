@@ -1,9 +1,12 @@
 <template>
   <div class="header">
-    <div class="right">Madium</div>
+    <div class="right">
+      <h1><router-link to="/">Madium</router-link></h1>
+    </div>
 
     <!-- If the user is currently logged in -->
     <div v-if="user" class="right">
+      <span>Hello {{ user.firstname }} </span>
       <button @click="logoutAction()">Logout</button>
     </div>
 
@@ -13,6 +16,7 @@
         <input v-model="credentials.email" type="email" placeholder="Email" class="email">
         <input v-model="credentials.password" type="password" placeholder="Mot de passe" class="password">
         <button>Go !</button>
+        <router-link to="/signup">Inscription</router-link>
       </div>
     </form>
   </div>
@@ -46,16 +50,22 @@
       },
       async logoutAction() {
         await logout();
+        this.$emit('logout');
       }
     }
   };
 </script>
 
 <style scoped>
-.header {
-  border: 1px solid red;
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 100px;
-}
+  .header {
+    border: 1px solid red;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 100px;
+    margin-bottom: 10px;
+  }
+
+  h1 {
+    font-size: 1em;
+  }
 </style>

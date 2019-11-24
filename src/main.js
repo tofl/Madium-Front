@@ -1,15 +1,18 @@
 import Vue from 'vue';
 import App from './App.vue';
-import Home from './components/Home.vue';
 import VueRouter from 'vue-router';
 
+// Components :
+import Home from './components/Home.vue';
+import Signup from './components/Signup';
 
 Vue.config.productionTip = false;
 
 Vue.use(VueRouter);
 
 const routes = [
-  { path: '/', component: Home }
+  { path: '/', component: Home },
+  { path: '/signup', component: Signup },
 ];
 
 const router = new VueRouter({

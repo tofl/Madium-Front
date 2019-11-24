@@ -1,31 +1,15 @@
 <template>
   <div>
-    <Header :user="user" @login="hydrateUser"></Header>
+    <h2 v-if="!user">Derniers articles</h2>
+    <h2 v-else>Abonnement</h2>
   </div>
 </template>
 
 <script>
-  import Header from './Header';
-  import { getUser } from './../services/user';
-
-
   export default {
-    name: 'app',
-    components: {
-      Header
-    },
-    data() {
-      return {
-        user: null
-      }
-    },
-    methods: {
-      hydrateUser(userData) {
-        this.user = userData;
-      }
-    },
-    async created() {
-      this.user = await getUser();
+    name: 'Home',
+    props: {
+      user: Object
     }
   }
 </script>

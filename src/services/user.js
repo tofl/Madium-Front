@@ -37,8 +37,15 @@ async function logout() {
   }
 }
 
+async function newUser(firstname, lastname, email, password) {
+  let newUser = await back.post("/users/new", {firstname, lastname, email, password});
+  
+  return newUser.data;
+}
+
 export {
   login,
   getUser,
-  logout
+  logout,
+  newUser,
 };

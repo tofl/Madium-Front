@@ -1,21 +1,30 @@
 <template>
   <div id="app">
-    <router-view></router-view>
+    <Header :user="user" @login="importUser" @logout="user = null"></Header>
+    <div class="main-wrapper">
+      <router-view :user="user"></router-view>
+    </div>
   </div>
 </template>
 
 <script>
+import Header from './components/Header';
 import { getUser } from './services/user';
 
 
 export default {
   name: 'app',
   components: {
-
+    Header
   },
   data() {
     return {
       user: null
+    }
+  },
+  methods: {
+    importUser(userData) {
+      this.user = userData;
     }
   },
   async created() {
@@ -25,8 +34,12 @@ export default {
 </script>
 
 <style>
-body {
-  margin: 0;
-  padding: 0;
-}
+  * {
+    margin: 0;
+    padding: 0;
+  }
+  .main-wrapper {
+    width: 90%;
+    margin: auto;
+  }
 </style>
