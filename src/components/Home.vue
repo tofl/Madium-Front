@@ -15,7 +15,7 @@
 </template>
 
 <script>
-  import { getFollowersPosts } from './../services/post';
+  import { getFollowersPosts, getLatestPosts } from './../services/post';
 
   export default {
     name: 'Home',
@@ -31,7 +31,7 @@
       if (this.user) {
         this.posts = await getFollowersPosts(1);
       } else {
-        this.posts = [];
+        this.posts = await getLatestPosts(1);
       }
     },
     watch: {
@@ -39,7 +39,7 @@
         if (this.user) {
           this.posts = await getFollowersPosts(1);
         } else {
-          this.posts = [];
+          this.posts = await getLatestPosts(1);
         }
       }
     }

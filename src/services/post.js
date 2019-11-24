@@ -8,10 +8,21 @@ const back = axios.create({
 
 async function getFollowersPosts(page) {
   let posts = await back.get('/posts/follow/' + page);
-  
   return posts.data;
 }
 
+async function getLatestPosts(page) {
+  let posts = await back.get('/posts/page/' + page);
+  return posts.data;
+}
+
+async function getPost(id) {
+  let post = await back.get('/posts/' + id);
+  return post.data;
+}
+
 export {
-  getFollowersPosts
+  getFollowersPosts,
+  getLatestPosts,
+  getPost,
 };
