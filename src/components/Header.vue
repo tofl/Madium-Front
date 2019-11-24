@@ -6,7 +6,7 @@
 
     <!-- If the user is currently logged in -->
     <div v-if="user" class="right">
-      <span>Hello {{ user.firstname }} </span>
+      <span>Hello <router-link :to="{ name: 'user', params: { id: user.id } }">{{ user.firstname }}</router-link> </span>
       <button @click="logoutAction()">Logout</button>
     </div>
 

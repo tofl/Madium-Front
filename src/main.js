@@ -6,6 +6,7 @@ import VueRouter from 'vue-router';
 import Home from './components/Home.vue';
 import Signup from './components/Signup';
 import Post from './components/Post';
+import User from './components/User';
 
 Vue.config.productionTip = false;
 
@@ -15,6 +16,7 @@ const routes = [
   { path: '/', component: Home },
   { path: '/signup', component: Signup },
   { name: 'post', path: '/post/:id', component: Post },
+  { name: 'user', path: '/user/:id', component: User },
 ];
 
 const router = new VueRouter({

@@ -43,9 +43,19 @@ async function newUser(firstname, lastname, email, password) {
   return newUser.data;
 }
 
+async function updateUser(id, firstname, lastname, email, password) {
+  return back.put("/users/" + id, {
+    firstname,
+    lastname,
+    email,
+    password
+  });
+}
+
 export {
   login,
   getUser,
   logout,
   newUser,
+  updateUser
 };
