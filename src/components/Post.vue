@@ -13,12 +13,14 @@
     <div class="comments" v-if="waitingForComments">
       En attente des commentaires...
     </div>
+
     <div v-if="!waitingForComments && comments.length > 0">
       <div class="comment" v-for="comment in comments" :key="comment.id">
         <p>{{ comment.content }}</p>
         <span>Par <router-link :to="{ name: 'user', params: { id: comment.author_id } }">{{ comment.author }}</router-link></span>
       </div>
     </div>
+
     <p v-if="!waitingForComments && comments.length === 0">Il n'y a pas de commentaires à afficher.</p>
   </div>
 </template>
@@ -34,20 +36,20 @@
       return {
         post: null,
         comments: [],
-        postId: null,
         waitingForComments: true
       }
     },
     async created() {
-      this.postId = this.$route.params.id;
       this.post = await getPost(this.$route.params.id);
 
-      let comments = await getComments(this.postId);
-      comments.forEach(async comment => {
-        let author = await getUser(comment.id);
+      let allComments = await getComments(this.$route.params.id);
+      this.comments = allComments.map(async comment => {
+        let author = await getUser(comment.author_id);
         comment.author = author.firstname + " " + author.lastname;
+
+        return comment;
       });
-      this.comments = comments;
+      this.comments = await Promise.all(this.comments);
       this.waitingForComments = false;
     }
   }

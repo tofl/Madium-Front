@@ -7,8 +7,13 @@ const back = axios.create({
 });
 
 async function getComments(postId) {
-  let comments = await back.get("/comments/" + postId);
-  return comments.data
+  let comments;
+  try {
+    comments = await back.get("/comments/" + postId);
+    return comments.data
+  } catch (e) {
+    return [];
+  }
 }
 
 export {
