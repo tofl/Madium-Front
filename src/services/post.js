@@ -21,8 +21,19 @@ async function getPost(id) {
   return post.data;
 }
 
+async function publish(title, content) {
+  console.log('appe');
+  let postId = await back.post("/posts/new", {
+    title,
+    content
+  });
+  console.log(postId.data);
+  return postId.data.id;
+}
+
 export {
   getFollowersPosts,
   getLatestPosts,
   getPost,
+  publish,
 };

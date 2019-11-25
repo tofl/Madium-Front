@@ -4,6 +4,9 @@
     <h2 v-else>Abonnement</h2>
 
     <div class="posts">
+      <span v-if="posts.length > 0">
+        <router-link to="/post/new">Nouveau post</router-link>
+      </span>
       <p v-if="posts.length === 0">Il n'y a pas d'articles à afficher pour le moment...</p>
 
       <div v-else v-for="post in posts" :key="post.id" class="post">
