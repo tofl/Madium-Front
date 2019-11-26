@@ -24,7 +24,7 @@
         if (this.title < 2 || this.content < 5) {
           return;
         }
-        console.log("aaa");
+
         let id = await publish(this.title, this.content);
         this.$router.push('/post/' + id);
       }
