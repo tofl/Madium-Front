@@ -16,6 +16,13 @@ async function getComments(postId) {
   }
 }
 
+async function postComment(content, postId) {
+  await back.post("/comments/new/" + postId, {
+    content
+  });
+}
+
 export {
-  getComments
+  getComments,
+  postComment
 }
