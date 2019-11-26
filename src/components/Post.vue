@@ -73,6 +73,13 @@
         }
         console.log(this.newComment);
         await postComment(this.newComment, this.$route.params.id);
+        let lastComment = {
+          author: this.user.firstname + " " + this.user.lastname,
+          author_id: this.user.id,
+          content: this.newComment,
+          id: this.comments[this.comments.length - 1].id + 1
+        };
+        this.comments.push(lastComment);
         this.newComment = "";
       }
     }
