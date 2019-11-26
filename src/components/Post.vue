@@ -29,7 +29,7 @@
       <form @submit.prevent="submitComment">
         <textarea cols="60" rows="5" placeholder="Votre commentaire" v-model="newComment"></textarea>
         <br />
-        <input type="submit" value="Envoyer">
+        <input type="submit" value="Envoyer" :disabled="newComment.length < 5">
       </form>
     </div>
   </div>
@@ -77,7 +77,7 @@
           author: this.user.firstname + " " + this.user.lastname,
           author_id: this.user.id,
           content: this.newComment,
-          id: this.comments[this.comments.length - 1].id + 1
+          id: this.comments.length > 0 ? this.comments[this.comments.length - 1].id + 1 : 0
         };
         this.comments.push(lastComment);
         this.newComment = "";
