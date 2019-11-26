@@ -2,7 +2,7 @@
   <div>
     <div class="post" v-if="post">
       <h2>{{ post.title }}</h2>
-      <span style="font-style: italic">Le {{ post.date }}</span>
+      <span style="font-style: italic;">Le {{ post.date }}. <router-link :to="{ name: 'user', params: { id: post.author_id }}">Auteur</router-link></span>
       <p>{{ post.content }}</p>
     </div>
 
@@ -71,7 +71,7 @@
         if (this.newComment.length < 5) {
           return;
         }
-        console.log(this.newComment);
+
         await postComment(this.newComment, this.$route.params.id);
         let lastComment = {
           author: this.user.firstname + " " + this.user.lastname,

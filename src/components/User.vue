@@ -1,5 +1,9 @@
 <template>
   <div class="showUser">
+    <div class="subscribe" v-if="user && userInfo.id !== user.id">
+
+    </div>
+
     <h2>Lire une fiche utilisateur</h2>
     <ul class="userInfo" v-if="userInfo">
       <li>Prénom : {{ userInfo.firstname }}</li>
