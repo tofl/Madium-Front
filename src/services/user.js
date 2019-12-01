@@ -52,10 +52,26 @@ async function updateUser(id, firstname, lastname, email, password) {
   });
 }
 
+async function isSubscribed(from, to) {
+  let isSubscribed = await back.post("/users/subscribed", { from, to });
+  return isSubscribed;
+}
+
+async function subscribe(target) {
+  await back.get("/users/follow/" + target);
+}
+
+async function unsubscribe(target) {
+  await back.get("/users/unfollow/" + target);
+}
+
 export {
   login,
   getUser,
   logout,
   newUser,
-  updateUser
+  updateUser,
+  subscribe,
+  unsubscribe,
+  isSubscribed
 };

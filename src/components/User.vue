@@ -1,7 +1,8 @@
 <template>
   <div class="showUser">
-    <div class="subscribe" v-if="user && userInfo.id !== user.id">
-
+    <div class="subscribe" v-if="user && userInfo && userInfo.id !== user.id">
+      <button v-if="subscribed" @click="unsubscribe">Se désabonner</button>
+      <button v-else @click="subscribe">S'abonner</button>
     </div>
 
     <h2>Lire une fiche utilisateur</h2>
@@ -28,7 +29,7 @@
 </template>
 
 <script>
-  import { getUser, updateUser } from "../services/user";
+  import { getUser, updateUser, subscribe, unsubscribe, isSubscribed } from "../services/user";
 
   export default {
     name: 'User',
@@ -38,7 +39,8 @@
     data() {
       return {
         userInfo: null,
-        formData: null
+        formData: null,
+        subscribed: false
       };
     },
     methods: {
@@ -50,11 +52,24 @@
 
         let newUserData = await getUser();
         this.$emit('login', newUserData);
+      },
+      subscribe: async function() {
+        await subscribe(this.userInfo.id);
+        this.subscribed = true;
+      },
+      unsubscribe: async function() {
+        await unsubscribe(this.userInfo.id);
+        this.subscribed = false;
       }
     },
     async mounted() {
       this.userInfo = await getUser(this.$route.params.id);
       this.formData = Object.assign({}, this.user);
+
+      // Check if the user is subscribed :
+      if (this.user) {
+        this.subscribed = (await isSubscribed(this.user.id, this.userInfo.id)).data;
+      }
     },
     watch: {
       '$route.params.id': async function (id) {
